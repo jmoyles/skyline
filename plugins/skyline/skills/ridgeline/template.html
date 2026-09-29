@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ridgeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#181B20; --paper:#F2F0EA; --surface:#FFFFFE; --rail-bg:#E8E5DD; --border:#D8D4C9; --muted:#6B6F72;
+    --accent:#B5502E; --accent-soft:#F3E2D9; --red:#B23A3A; --red-soft:#F5E1DF; --amber:#A5721A; --amber-soft:#F2E6CC;
+    --plum:#7D5468; --plum-soft:#EDE0E6; --green:#3E7A5C; --green-soft:#DEEBE3; --shadow:0 1px 0 rgba(24,27,32,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#ECE9E2; --paper:#15171B; --surface:#1C1F24; --rail-bg:#23262B; --border:#33373D; --muted:#9A9D9F;
+      --accent:#E08F63; --accent-soft:#3A2A22; --red:#E08383; --red-soft:#3A2426; --amber:#E0B15C; --amber-soft:#3A331F;
+      --plum:#CFA3BB; --plum-soft:#332630; --green:#8FCBAA; --green-soft:#213229; --shadow:0 1px 0 rgba(0,0,0,0.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#ECE9E2; --paper:#15171B; --surface:#1C1F24; --rail-bg:#23262B; --border:#33373D; --muted:#9A9D9F;
+    --accent:#E08F63; --accent-soft:#3A2A22; --red:#E08383; --red-soft:#3A2426; --amber:#E0B15C; --amber-soft:#3A331F;
+    --plum:#CFA3BB; --plum-soft:#332630; --green:#8FCBAA; --green-soft:#213229; --shadow:0 1px 0 rgba(0,0,0,0.3);
+  }
+  *{box-sizing:border-box;}
+  :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+  body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;padding:0 20px;padding-block:40px 64px;}
+  .page{max-width:720px;margin:0 auto;}
+  .mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;}
+  .masthead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px;}
+  .wordmark{font-family:'Fraunces',serif;font-weight:600;font-size:1.7rem;letter-spacing:-0.01em;}
+  .wordmark span{color:var(--accent);}
+  .dateline{font-size:0.85rem;color:var(--muted);font-family:'IBM Plex Mono',monospace;}
+  .subline{color:var(--muted);font-size:0.95rem;margin:2px 0 22px;}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:36px;}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:12px 12px 10px;box-shadow:var(--shadow);}
+  .stat .n{font-family:'Fraunces',serif;font-weight:600;font-size:1.7rem;line-height:1;}
+  .stat .l{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-top:5px;}
+  .stat.hot .n{color:var(--accent);} .stat.warn .n{color:var(--amber);} .stat.plum .n{color:var(--plum);}
+  section{margin-bottom:34px;}
+  .eyebrow{display:flex;align-items:center;gap:9px;font-family:'Fraunces',serif;font-weight:600;font-size:1.02rem;text-wrap:balance;margin-bottom:12px;}
+  .eyebrow .dot{width:9px;height:9px;border-radius:50%;flex:none;}
+  .eyebrow .count{font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:0.8rem;color:var(--muted);}
+  .item{display:flex;gap:12px;padding:11px 14px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--rail);border-radius:0 5px 5px 0;margin-bottom:8px;}
+  .item .num{font-family:'IBM Plex Mono',monospace;color:var(--muted);font-size:0.85rem;padding-top:1px;}
+  .item .body{flex:1;min-width:0;}
+  .item .desc{font-size:0.95rem;line-height:1.45;}
+  .item .meta{font-size:0.8rem;color:var(--muted);margin-top:3px;}
+  .today .item{--rail:var(--accent);}
+  .trip{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow);}
+  .trip-head{padding:14px 16px;border-bottom:1px solid var(--border);background:var(--rail-bg);}
+  .trip-head .dest{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;}
+  .trip-head .window{font-size:0.82rem;color:var(--muted);margin-top:2px;}
+  .leg{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:11px 16px;border-bottom:1px solid var(--border);}
+  .leg:last-of-type{border-bottom:none;}
+  .leg .ic{color:var(--muted);font-size:0.95rem;text-align:center;}
+  .leg .lbl{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);}
+  .leg .detail{font-size:0.9rem;margin-top:1px;}
+  .leg .code{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--muted);margin-top:1px;}
+  .pill{font-size:0.7rem;padding:3px 9px;border-radius:99px;white-space:nowrap;font-weight:500;}
+  .pill.ok{background:var(--green-soft);color:var(--green);} .pill.flag{background:var(--amber-soft);color:var(--amber);}
+  .trip-note{padding:12px 16px;font-size:0.87rem;line-height:1.5;background:var(--amber-soft);color:var(--ink);border-top:1px solid var(--border);}
+  .trip-note b{color:var(--amber);}
+  .trip-foot{padding:10px 16px;font-size:0.85rem;color:var(--muted);border-top:1px solid var(--border);}
+  .row{display:grid;grid-template-columns:1fr auto;gap:10px 16px;align-items:center;padding:11px 14px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:8px;}
+  .row .desc{font-size:0.95rem;} .row .who{font-size:0.8rem;color:var(--muted);margin-top:2px;}
+  .duechip{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;text-align:right;white-space:nowrap;}
+  .duechip .d{font-weight:500;} .duechip .days{display:block;color:var(--muted);font-size:0.72rem;}
+  .stalled-card{background:var(--plum-soft);border:1px solid var(--border);border-left:3px solid var(--plum);border-radius:0 6px 6px 0;padding:14px 16px;margin-bottom:10px;}
+  .stalled-card .title{font-weight:600;font-size:0.97rem;margin-bottom:8px;}
+  .field{display:grid;grid-template-columns:76px 1fr;gap:8px;font-size:0.87rem;line-height:1.5;margin-bottom:4px;}
+  .field .k{color:var(--plum);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.05em;padding-top:2px;}
+  .tier{margin-bottom:16px;}
+  .tier-h{display:flex;align-items:center;gap:8px;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:7px;padding:10px 12px 0;}
+  .tier-h .sw{width:8px;height:8px;border-radius:2px;}
+  .needline{display:grid;grid-template-columns:1fr auto;gap:10px;padding:8px 12px;border-bottom:1px solid var(--border);font-size:0.88rem;}
+  .needline:last-child{border-bottom:none;}
+  .needline .age{font-family:'IBM Plex Mono',monospace;color:var(--muted);font-size:0.78rem;white-space:nowrap;}
+  .needwrap{background:var(--surface);border:1px solid var(--border);border-radius:6px;}
+  .askline{font-size:0.86rem;color:var(--muted);margin-top:10px;line-height:1.5;}
+  .allclear{text-align:center;padding:48px 0;color:var(--muted);font-family:'Fraunces',serif;font-size:1.1rem;}
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);font-size:0.78rem;color:var(--muted);}
+  @media (max-width:520px){ .stats{grid-template-columns:repeat(2,1fr);} .field{grid-template-columns:1fr;} .field .k{padding-top:0;} }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="masthead"><div class="wordmark">Ridge<span>line</span></div><div class="dateline">[DAY · MON DD YYYY]</div></div>
+  <div class="subline">[OWNER NAME] &nbsp;&middot;&nbsp; [COMPANY]</div>
+  <div class="stats">
+    <div class="stat hot"><div class="n">[#today]</div><div class="l">Today</div></div>
+    <div class="stat warn"><div class="n">[trip y/n or days-out]</div><div class="l">Trip</div></div>
+    <div class="stat"><div class="n">[#this week]</div><div class="l">Due this wk</div></div>
+    <div class="stat plum"><div class="n">[#no date]</div><div class="l">No date</div></div>
+  </div>
+  <!-- section class="today" with .item rows, section with .trip card, section with .row rows, section with .stalled-card blocks, section with .needwrap/.tier/.needline - each only if that section has content; otherwise a single .allclear line replacing the whole stack below the stats -->
+  <footer>Ridgeline draws from Throughline, your calendar, and your inbox. [Mon D, YYYY]</footer>
+</div>
+</body>
+</html>

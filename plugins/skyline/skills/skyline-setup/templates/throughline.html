@@ -1,0 +1,1259 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Throughline</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #F4F5F7;
+    --surface: #FFFFFF;
+    --surface-raised: #FBFCFD;
+    --ink: #16202B;
+    --ink-muted: #57636F;
+    --ink-faint: #4E5761;
+    --line: #E1E4E8;
+    --line-strong: #C7CDD4;
+    --accent: #1E4E79;
+    --accent-strong: #123049;
+    --accent-soft: #DCE8F2;
+    --danger: #B3261E;
+    --danger-soft: #F7E1DE;
+    --warning: #8A5A08;
+    --warning-soft: #F8ECD2;
+    --success: #2E7D46;
+    --success-soft: #DFF0E4;
+    --stalled: #6A4C93;
+    --stalled-soft: #EAE2F5;
+    --pillar-people: #A5432E;
+    --pillar-people-soft: #F6E2DC;
+    --pillar-process: #6B6A1E;
+    --pillar-process-soft: #F0EFD4;
+    --pillar-systems: #1F6F8B;
+    --pillar-systems-soft: #DCEEF3;
+    --shadow: 0 1px 2px rgba(22,32,43,0.06), 0 4px 12px rgba(22,32,43,0.05);
+    --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10161D;
+      --surface: #181F28;
+      --surface-raised: #1E2731;
+      --ink: #E8EBEE;
+      --ink-muted: #A3AEBA;
+      --ink-faint: #A0AAB5;
+      --line: #2A333E;
+      --line-strong: #3B4652;
+      --accent: #79ADDC;
+      --accent-strong: #A6CBEA;
+      --accent-soft: #1F3648;
+      --danger: #E3897E;
+      --danger-soft: #3A211E;
+      --warning: #E4B75B;
+      --warning-soft: #3A2C12;
+      --success: #7BC494;
+      --success-soft: #17301F;
+      --stalled: #BB9EE3;
+      --stalled-soft: #2A2140;
+      --pillar-people: #E29B87;
+      --pillar-people-soft: #3A2420;
+      --pillar-process: #D3D177;
+      --pillar-process-soft: #34331A;
+      --pillar-systems: #7FC4DE;
+      --pillar-systems-soft: #163540;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 6px 16px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #10161D;
+    --surface: #181F28;
+    --surface-raised: #1E2731;
+    --ink: #E8EBEE;
+    --ink-muted: #A3AEBA;
+    --ink-faint: #A0AAB5;
+    --line: #2A333E;
+    --line-strong: #3B4652;
+    --accent: #79ADDC;
+    --accent-strong: #A6CBEA;
+    --accent-soft: #1F3648;
+    --danger: #E3897E;
+    --danger-soft: #3A211E;
+    --warning: #E4B75B;
+    --warning-soft: #3A2C12;
+    --success: #7BC494;
+    --success-soft: #17301F;
+    --stalled: #BB9EE3;
+    --stalled-soft: #2A2140;
+    --pillar-people: #E29B87;
+    --pillar-people-soft: #3A2420;
+    --pillar-process: #D3D177;
+    --pillar-process-soft: #34331A;
+    --pillar-systems: #7FC4DE;
+    --pillar-systems-soft: #163540;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 6px 16px rgba(0,0,0,0.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    padding: 0 20px;
+  }
+  .wrap { max-width: 1160px; margin: 0 auto; padding-block: 28px 60px; }
+
+  h1, h2, h3 { font-family: var(--font-sans); font-weight: 600; text-wrap: balance; margin: 0; }
+  .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  a { color: var(--accent); }
+
+  /* ---------- header ---------- */
+  header.top {
+    display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+    gap: 16px; padding-bottom: 20px; border-bottom: 1px solid var(--line); margin-bottom: 22px;
+  }
+  .brand-eyebrow {
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+    font-weight: 600; margin-bottom: 4px;
+  }
+  header.top h1 { font-size: 26px; letter-spacing: -0.01em; }
+  header.top .sub { color: var(--ink-muted); font-size: 14px; margin-top: 4px; }
+  #db-banner {
+    font-size: 13px; color: var(--warning); background: var(--warning-soft);
+    border: 1px solid var(--warning); border-radius: 6px; padding: 8px 12px; margin-bottom: 18px;
+  }
+  #db-banner[hidden] { display: none; }
+
+  .sync-status {
+    display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11.5px; color: var(--ink-faint);
+    font-family: var(--font-mono); margin-top: 8px;
+  }
+  .sync-status .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 5px; position: relative; top: -1px; }
+  .sync-status .dot.live { background: var(--success); }
+  .sync-status .dot.off { background: var(--ink-faint); }
+
+  .source-status {
+    display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11.5px; color: var(--ink-faint);
+    font-family: var(--font-mono); margin-top: 4px;
+  }
+  .source-chip.warn { color: var(--warning); font-weight: 600; }
+  .source-chip.bad { color: var(--danger); font-weight: 600; }
+
+  .backup-row { margin-top: 10px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .backup-meta { font-size: 11.5px; color: var(--ink-faint); font-family: var(--font-mono); }
+
+  .stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+  .stat-tile {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+    padding: 14px 16px; cursor: pointer; text-align: left; font-family: inherit;
+    display: flex; flex-direction: column; gap: 6px; transition: border-color .15s;
+  }
+  .stat-tile:hover, .stat-tile:focus-visible { border-color: var(--line-strong); outline: none; }
+  .stat-tile .n { font-family: var(--font-mono); font-size: 26px; font-weight: 600; line-height: 1; }
+  .stat-tile .l { font-size: 12.5px; color: var(--ink-muted); }
+  .stat-tile.danger .n { color: var(--danger); }
+  .stat-tile.warning .n { color: var(--warning); }
+
+  section.block { margin-bottom: 36px; }
+  .block-head {
+    display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap;
+    gap: 10px; margin-bottom: 12px;
+  }
+  .block-head h2 { font-size: 17px; }
+  .block-head .count { color: var(--ink-faint); font-size: 13px; font-family: var(--font-mono); }
+
+  /* ---------- controls ---------- */
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; }
+  .pillbtn {
+    font-family: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink-muted);
+    cursor: pointer; white-space: nowrap;
+  }
+  .pillbtn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .search-input, .field-input, .field-select {
+    font-family: inherit; font-size: 13.5px; padding: 7px 10px; border-radius: 6px;
+    border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+  }
+  .search-input { min-width: 200px; flex: 1 1 200px; }
+  .spacer { flex: 1 1 auto; }
+  .ghostbtn {
+    font-family: inherit; font-size: 13px; padding: 6px 12px; border-radius: 6px;
+    border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+    cursor: pointer;
+  }
+  .ghostbtn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- action item table ---------- */
+  .ai-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+  table.ai { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 720px; }
+  table.ai th {
+    text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--ink-faint); font-weight: 600; padding: 10px 12px; border-bottom: 1px solid var(--line);
+    background: var(--surface-raised);
+  }
+  table.ai td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.ai tr:last-child td { border-bottom: none; }
+  table.ai tr.is-overdue td.desc-cell { box-shadow: inset 3px 0 0 var(--danger); }
+  table.ai tr.is-overdue-2 td.desc-cell { box-shadow: inset 5px 0 0 var(--danger); }
+  table.ai tr.is-overdue-3 td.desc-cell { box-shadow: inset 5px 0 0 var(--danger); background: var(--danger-soft); }
+  table.ai tr.is-due-soon td.desc-cell { box-shadow: inset 3px 0 0 var(--warning); }
+  .desc-main { font-weight: 500; }
+  .desc-meta { color: var(--ink-faint); font-size: 12px; margin-top: 2px; }
+  .due-cell.overdue { color: var(--danger); font-weight: 600; }
+  .due-cell.overdue-2 { font-weight: 700; }
+  .due-cell.overdue-3 { font-weight: 700; text-decoration: underline; text-decoration-color: var(--danger); text-underline-offset: 2px; }
+  .due-cell.soon { color: var(--warning); font-weight: 600; }
+  .due-cell.none { color: var(--ink-faint); font-style: italic; }
+  .due-cell .due-text { cursor: pointer; border-bottom: 1px dashed var(--line-strong); }
+  .due-cell .due-text:hover { border-bottom-color: var(--accent); color: var(--accent); }
+  .due-cell input[type="date"] { font-family: inherit; font-size: 12.5px; padding: 4px 6px; border-radius: 5px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); }
+  .overdue-chip { font-size: 11px; padding: 2px 7px; border-radius: 5px; background: var(--danger-soft); color: var(--danger); margin-left: 6px; font-weight: 600; }
+
+  .status-pill {
+    font-family: inherit; font-size: 12px; font-weight: 600; border: none; border-radius: 999px;
+    padding: 4px 10px; cursor: pointer; white-space: nowrap;
+  }
+  .status-pill.open { background: var(--accent-soft); color: var(--accent-strong); }
+  .status-pill.in_progress { background: var(--warning-soft); color: var(--warning); }
+  .status-pill.blocked { background: var(--danger-soft); color: var(--danger); }
+  .status-pill.done { background: var(--success-soft); color: var(--success); }
+
+  .dir-chip { font-size: 11.5px; padding: 2px 8px; border-radius: 5px; border: 1px solid var(--line-strong); color: var(--ink-muted); white-space: nowrap; }
+  .stalled-chip { font-size: 11px; padding: 2px 7px; border-radius: 5px; background: var(--stalled-soft); color: var(--stalled); margin-left: 6px; }
+  .pillar-chip { font-size: 11.5px; padding: 2px 8px; border-radius: 5px; font-weight: 600; white-space: nowrap; }
+  .pillar-chip.people { background: var(--pillar-people-soft); color: var(--pillar-people); }
+  .pillar-chip.process { background: var(--pillar-process-soft); color: var(--pillar-process); }
+  .pillar-chip.systems { background: var(--pillar-systems-soft); color: var(--pillar-systems); }
+  .pillar-chip.p3 { background: rgba(125,84,104,0.14); color: #7D5468; }
+  .pillar-chip.p4 { background: rgba(62,122,92,0.14); color: #3E7A5C; }
+  .pillar-chip.p5 { background: rgba(165,114,26,0.14); color: #A5721A; }
+  .example-chip { font-size: 10.5px; padding: 1px 6px; border-radius: 4px; border: 1px dashed var(--line-strong); color: var(--ink-faint); margin-left: 6px; }
+  .category-chip { font-size: 10.5px; padding: 1px 7px; border-radius: 4px; background: var(--line); color: var(--ink-muted); margin-left: 6px; }
+
+  .row-actions { display: flex; gap: 8px; align-items: center; }
+  .icon-btn {
+    font-family: inherit; font-size: 12px; border: none; background: none; color: var(--ink-faint);
+    cursor: pointer; padding: 2px 4px;
+  }
+  .icon-btn:hover { color: var(--danger); }
+  .icon-btn.confirming { color: var(--danger); font-weight: 600; }
+  .icon-btn.reassign-btn:hover { color: var(--accent); }
+
+  .reassign-row td { padding: 12px 14px 16px; background: var(--surface-raised); }
+  .reassign-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .reassign-form .field-input { flex: 1 1 220px; }
+  .reassign-form .field-select { flex: 1 1 260px; }
+  .reassign-form .reassign-hint { flex-basis: 100%; font-size: 12px; color: var(--ink-muted); }
+  .reassign-form .reassign-actions { display: flex; gap: 8px; }
+
+  details.addform {
+    margin-top: 10px; border: 1px dashed var(--line-strong); border-radius: 8px; background: var(--surface);
+  }
+  details.addform > summary {
+    cursor: pointer; padding: 10px 14px; font-size: 13.5px; color: var(--accent); font-weight: 500; list-style: none;
+  }
+  details.addform > summary::-webkit-details-marker { display: none; }
+  details.addform > summary::before { content: "+ "; }
+  details.addform[open] > summary::before { content: "– "; }
+  .addform-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto; gap: 8px; padding: 0 14px 14px;
+  }
+  @media (max-width: 800px) { .addform-grid { grid-template-columns: 1fr 1fr; } }
+  .addform-grid .submitbtn {
+    grid-column: -1; font-family: inherit; font-size: 13px; padding: 7px 14px; border-radius: 6px;
+    border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer;
+  }
+
+  /* ---------- two column: decisions / meetings ---------- */
+  .two-col { display: grid; grid-template-columns: 320px 1fr; gap: 24px; align-items: start; }
+  @media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+
+  .decision-item { padding: 12px 0; border-bottom: 1px solid var(--line); display: flex; gap: 8px; align-items: flex-start; }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-item .d-main { flex: 1 1 auto; min-width: 0; }
+  .decision-item .d-date { font-size: 12px; color: var(--ink-faint); }
+  .decision-item .d-text { font-size: 13.5px; margin-top: 3px; }
+  .decision-item .d-meta { font-size: 12px; color: var(--ink-muted); margin-top: 3px; }
+  .decision-item .d-actions { flex: 0 0 auto; }
+
+  .meeting-card {
+    border: 1px solid var(--line); border-radius: 8px; background: var(--surface); margin-bottom: 10px;
+  }
+  .meeting-card > summary {
+    cursor: pointer; list-style: none; padding: 12px 16px; display: flex; align-items: center;
+    gap: 12px; flex-wrap: wrap;
+  }
+  .meeting-card > summary::-webkit-details-marker { display: none; }
+  .meeting-card .m-date { font-size: 12.5px; color: var(--ink-muted); white-space: nowrap; }
+  .meeting-card .m-title { font-weight: 600; font-size: 14.5px; }
+  .meeting-card .m-meta-right { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+  .topic-chip {
+    font-size: 11.5px; padding: 2px 8px; border-radius: 5px; background: var(--accent-soft); color: var(--accent-strong);
+    white-space: nowrap;
+  }
+  .meeting-body { padding: 0 16px 16px; border-top: 1px solid var(--line); }
+  .meeting-body .m-section { margin-top: 12px; }
+  .meeting-body .m-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint); font-weight: 600; margin-bottom: 4px; }
+  .meeting-body p, .meeting-body .attendee-list { font-size: 13.5px; line-height: 1.55; }
+  .risk-line { color: var(--danger); }
+  .stub-note { font-size: 13.5px; color: var(--ink-faint); font-style: italic; }
+  .other-ai-list { font-size: 13.5px; line-height: 1.6; }
+  .other-ai-list .oai-assignee { font-weight: 600; color: var(--ink-muted); }
+  .meeting-body .m-footer { margin-top: 14px; display: flex; justify-content: flex-end; }
+
+  .empty-note { color: var(--ink-faint); font-size: 13.5px; padding: 20px 4px; }
+
+  .radar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  .radar-card { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 14px 16px; }
+  .radar-card .r-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .radar-card .r-topic { font-weight: 600; font-size: 14.5px; }
+  .radar-card .r-count { font-family: var(--font-mono); font-size: 12px; color: var(--accent); white-space: nowrap; }
+  .radar-card .r-summary { font-size: 13px; color: var(--ink-muted); margin-top: 6px; line-height: 1.5; }
+  .radar-card .r-foot { margin-top: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .radar-card .r-seen { font-size: 11.5px; color: var(--ink-faint); font-family: var(--font-mono); }
+  .radar-card .r-sources { display: flex; gap: 4px; flex-wrap: wrap; }
+  .source-chip { font-size: 10.5px; padding: 1px 7px; border-radius: 5px; background: var(--accent-soft); color: var(--accent-strong); }
+
+  footer.page-footer {
+    margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line);
+    font-size: 12.5px; color: var(--ink-faint); line-height: 1.6;
+  }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="brand-eyebrow" id="brand-company"></div>
+      <h1>Throughline</h1>
+      <div class="sub" id="brand-owner">Meeting log, decisions, and the open action item register</div>
+      <div class="sync-status" id="sync-status"></div>
+      <div class="source-status" id="source-status"></div>
+      <div class="backup-row">
+        <button class="ghostbtn" id="backup-btn">Back up register (.csv)</button>
+        <span class="backup-meta" id="backup-meta"></span>
+      </div>
+    </div>
+  </header>
+
+  <div id="db-banner" hidden></div>
+
+  <div class="stat-strip" id="stat-strip"></div>
+
+  <section class="block" id="ai-section">
+    <div class="block-head">
+      <h2>Action item register</h2>
+      <span class="count" id="ai-count"></span>
+    </div>
+    <div class="controls" id="ai-controls"></div>
+    <div class="ai-table-wrap">
+      <table class="ai">
+        <thead>
+          <tr>
+            <th style="width:30px"></th>
+            <th style="width:26%">Item</th>
+            <th style="width:12%">Owner</th>
+            <th style="width:10%">Direction</th>
+            <th style="width:11%">Due</th>
+            <th style="width:12%">Status</th>
+            <th>Source meeting</th>
+            <th style="width:36px"></th>
+          </tr>
+        </thead>
+        <tbody id="ai-tbody"></tbody>
+      </table>
+    </div>
+    <details class="addform">
+      <summary>Add action item manually</summary>
+      <form id="add-ai-form" class="addform-grid">
+        <input class="field-input" id="af-desc" placeholder="Description" required>
+        <input class="field-input" id="af-owner" placeholder="Owner">
+        <select class="field-select" id="af-direction">
+          <option value="owed_by_me">I owe this</option>
+          <option value="owed_to_me">Owed to me</option>
+        </select>
+        <select class="field-select" id="af-priority">
+          <option value="">Priority</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <input class="field-input" id="af-due" type="date">
+        <button type="submit" class="submitbtn">Add</button>
+      </form>
+    </details>
+  </section>
+
+  <section class="block" id="radar-section">
+    <div class="block-head">
+      <h2>Radar</h2>
+      <span class="count" id="radar-count"></span>
+    </div>
+    <div class="controls" id="radar-controls"></div>
+    <div class="radar-grid" id="radar-list"></div>
+  </section>
+
+  <div class="two-col">
+    <section class="block" id="decisions-section" style="margin-bottom:0;">
+      <div class="block-head"><h2>Decisions</h2><span class="count" id="dec-count"></span></div>
+      <div class="controls" id="dec-controls"></div>
+      <div id="dec-list"></div>
+    </section>
+
+    <section class="block" id="meetings-section" style="margin-bottom:0;">
+      <div class="block-head"><h2>Meeting log</h2><span class="count" id="meet-count"></span></div>
+      <div class="controls" id="meet-pillar-controls"></div>
+      <div class="controls">
+        <input class="search-input" id="meet-search" placeholder="Search meetings - topic, attendee, keyword…">
+      </div>
+      <div id="meet-list"></div>
+    </section>
+  </div>
+
+  <footer class="page-footer">
+    Meetings, decisions, and action items arrive two ways: automatically, from an hourly pass over calendar,
+    email, and Fellow, and manually, by asking Claude to log a pasted or attached transcript - needed for
+    Teams meetings, since Teams transcript access isn't automated. Either way this page updates live for
+    every viewer the moment something is written. A digest of overdue and soon-due items is emailed each
+    morning. Status pills cycle open → in progress → blocked → done on click.
+    <div id="tz-note" style="margin-top:8px;"></div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var state = {
+    db: null,
+    downloads: null,
+    actionItems: [],
+    meetings: [],
+    decisions: [],
+    aiFilter: "open",
+    aiSearch: "",
+    meetSearch: "",
+    meetPillar: "all",
+    selectedArchive: {},
+    reassigningId: null,
+    editingDueId: null,
+    decFilter: "active",
+    dbConnected: false,
+    lastLocalUpdate: null,
+    lastExternalUpdate: null,
+    lastBackupAt: null,
+    radarTopics: [],
+    radarWindow: 7,
+    sourceHealth: { calendar: null, email: null, teams: null, fellow: null }
+  };
+
+  var SOURCE_META = [
+    { key: "calendar", label: "Calendar" },
+    { key: "email", label: "Email" },
+    { key: "teams", label: "Teams" },
+    { key: "fellow", label: "Fellow" }
+  ];
+
+  var RADAR_WINDOWS = [7, 14, 30];
+
+  var PILLAR_SLOTS = ["people", "process", "systems", "p3", "p4", "p5"];
+  var PILLAR_WORD = "pillars";
+  var PILLAR_META = {
+    people: { label: "People", cls: "people" },
+    process: { label: "Process", cls: "process" },
+    systems: { label: "Systems", cls: "systems" }
+  };
+  function applyConfig(cfg) {
+    if (!cfg) return;
+    var co = document.getElementById("brand-company");
+    if (co) co.textContent = cfg.company || "";
+    var ow = document.getElementById("brand-owner");
+    if (ow) ow.textContent = (cfg.ownerName ? cfg.ownerName + " - " : "") + "meeting log, decisions, and the open action item register";
+    if (cfg.pillarWord) PILLAR_WORD = String(cfg.pillarWord).toLowerCase();
+    if (Array.isArray(cfg.pillars) && cfg.pillars.length) {
+      var next = {};
+      cfg.pillars.slice(0, PILLAR_SLOTS.length).forEach(function (p, i) {
+        if (p && p.key) next[p.key] = { label: p.label || p.key, cls: PILLAR_SLOTS[i] };
+      });
+      if (Object.keys(next).length) PILLAR_META = next;
+    }
+  }
+  function pillarChip(key) {
+    var m = PILLAR_META[key];
+    return m ? '<span class="pillar-chip ' + m.cls + '">' + m.label + '</span>' : "";
+  }
+  function fmtDateTime(iso) {
+    if (!iso) return "";
+    var d = new Date(iso);
+    if (isNaN(d)) return "";
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  }
+
+  function todayStr() {
+    var d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function addDays(str, n) {
+    var d = new Date(str + "T00:00:00");
+    d.setDate(d.getDate() + n);
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function daysBetween(a, b) {
+    var da = new Date(a + "T00:00:00"), db_ = new Date(b + "T00:00:00");
+    return Math.round((db_ - da) / 86400000);
+  }
+  function fmtDateTimeFull(d) {
+    if (!d) return null;
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric" }) + " " +
+      d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  }
+  function escapeHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function fmtDate(iso) {
+    if (!iso) return "";
+    var d = new Date(iso + "T00:00:00");
+    if (isNaN(d)) return iso;
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+  }
+
+  function itemStatusFlags(item) {
+    var t = todayStr();
+    var overdue = item.dueDate && item.dueDate < t && item.status !== "done";
+    var soon = !overdue && item.dueDate && item.dueDate <= addDays(t, 7) && item.status !== "done";
+    var stalled = (item.timesCarried || 1) >= 3 && item.status !== "done";
+    var noDate = !item.dueDate && item.status !== "done";
+    var overdueDays = overdue ? daysBetween(item.dueDate, t) : 0;
+    // Escalation tiers for overdue items: 1 = just overdue (1-6d), 2 = a week+ (7-13d), 3 = 14d+.
+    var overdueTier = !overdue ? 0 : overdueDays >= 14 ? 3 : overdueDays >= 7 ? 2 : 1;
+    return { overdue: overdue, soon: soon, stalled: stalled, noDate: noDate, overdueDays: overdueDays, overdueTier: overdueTier };
+  }
+
+  function rankItem(item) {
+    if (item.status === "done") return 5;
+    var f = itemStatusFlags(item);
+    if (f.overdue) return 0;
+    if (f.soon) return 1;
+    if (item.dueDate) return 2;
+    return 3;
+  }
+
+  var STATUS_ORDER = ["open", "in_progress", "blocked", "done"];
+  var STATUS_LABEL = { open: "Open", in_progress: "In progress", blocked: "Blocked", done: "Done" };
+
+  var AI_FILTERS = [
+    { key: "open", label: "Open" },
+    { key: "all", label: "All" },
+    { key: "nodate", label: "No due date" },
+    { key: "overdue", label: "Overdue" },
+    { key: "soon", label: "Due ≤ 7 days" },
+    { key: "owed_by_me", label: "I owe" },
+    { key: "owed_to_me", label: "Owed to me" },
+    { key: "blocked", label: "Blocked" },
+    { key: "stalled", label: "Stalled" },
+    { key: "done", label: "Done" },
+    { key: "archived", label: "Archived" }
+  ];
+
+  function matchesFilter(item, key) {
+    var f = itemStatusFlags(item);
+    switch (key) {
+      case "open": return item.status !== "done" && !item.archived;
+      case "all": return !item.archived;
+      case "nodate": return f.noDate && !item.archived;
+      case "overdue": return f.overdue;
+      case "soon": return f.soon;
+      case "owed_by_me": return item.direction === "owed_by_me" && item.status !== "done";
+      case "owed_to_me": return item.direction === "owed_to_me" && item.status !== "done";
+      case "blocked": return item.status === "blocked";
+      case "stalled": return f.stalled;
+      case "done": return item.status === "done" && !item.archived;
+      case "archived": return !!item.archived;
+      default: return true;
+    }
+  }
+
+  function setAiFilter(key) {
+    state.aiFilter = key;
+    state.selectedArchive = {};
+    state.reassigningId = null;
+    state.editingDueId = null;
+    render();
+  }
+
+  function render() {
+    renderStats();
+    renderControls();
+    renderActionItems();
+    renderDecControls();
+    renderDecisions();
+    renderPillarControls();
+    renderMeetings();
+    renderSyncStatus();
+    renderSourceStatus();
+    renderBackupMeta();
+    renderRadar();
+  }
+
+  function renderSourceStatus() {
+    var el = document.getElementById("source-status");
+    if (!el) return;
+    var now = new Date();
+    el.innerHTML = SOURCE_META.map(function (s) {
+      var t = state.sourceHealth[s.key];
+      var cls = "", text;
+      if (!t) {
+        text = s.label + ": not yet run";
+      } else {
+        var mins = Math.round((now - t) / 60000);
+        if (mins > 60) cls = "bad"; else if (mins > 30) cls = "warn";
+        text = s.label + ": " + (fmtClock(t) || "just now");
+      }
+      return '<span class="source-chip ' + cls + '">' + escapeHtml(text) + '</span>';
+    }).join("");
+  }
+
+  var SOURCE_LABEL = { meeting: "Meeting", calendar: "Calendar", email: "Email", teams: "Teams", fellow: "Fellow" };
+
+  function renderRadar() {
+    var controlsEl = document.getElementById("radar-controls");
+    controlsEl.innerHTML = "";
+    RADAR_WINDOWS.forEach(function (n) {
+      var b = document.createElement("button");
+      b.className = "pillbtn";
+      b.textContent = "Last " + n + " days";
+      b.setAttribute("aria-pressed", state.radarWindow === n ? "true" : "false");
+      b.onclick = function () { state.radarWindow = n; renderRadar(); };
+      controlsEl.appendChild(b);
+    });
+
+    var cutoff = addDays(todayStr(), -state.radarWindow);
+    var withCounts = state.radarTopics.map(function (t) {
+      var mentions = (t.mentions || []).filter(function (m) { return (m.date || "").slice(0, 10) >= cutoff; });
+      return Object.assign({}, t, { windowMentions: mentions, windowCount: mentions.length });
+    }).filter(function (t) { return t.windowCount > 0; });
+    withCounts.sort(function (a, b) {
+      if (b.windowCount !== a.windowCount) return b.windowCount - a.windowCount;
+      return (b.lastSeenAt || "") < (a.lastSeenAt || "") ? -1 : 1;
+    });
+
+    document.getElementById("radar-count").textContent = withCounts.length ? withCounts.length + " active" : "";
+    var el = document.getElementById("radar-list");
+    el.innerHTML = "";
+    if (!withCounts.length) {
+      el.innerHTML = '<div class="empty-note">Nothing on Radar for this window yet. Radar surfaces topics getting a lot of traffic across your sources - ask Claude once it’s turned on for you.</div>';
+      return;
+    }
+    withCounts.forEach(function (t) {
+      var card = document.createElement("div");
+      card.className = "radar-card";
+      var sources = {};
+      (t.windowMentions || []).forEach(function (m) { if (m.source) sources[m.source] = true; });
+      var sourceChips = Object.keys(sources).map(function (s) {
+        return '<span class="source-chip">' + escapeHtml(SOURCE_LABEL[s] || s) + '</span>';
+      }).join("");
+      card.innerHTML =
+        '<div class="r-head"><span class="r-topic">' + escapeHtml(t.topic || t.id) + '</span>' +
+        '<span class="r-count mono">' + t.windowCount + ' mention' + (t.windowCount === 1 ? "" : "s") + '</span></div>' +
+        (t.summary ? '<div class="r-summary">' + escapeHtml(t.summary) + '</div>' : "") +
+        '<div class="r-foot"><span class="r-seen">Last seen ' + fmtDate((t.lastSeenAt || "").slice(0, 10)) + '</span>' +
+        '<span class="r-sources">' + sourceChips + '</span></div>';
+      el.appendChild(card);
+    });
+  }
+
+  function fmtClock(d) {
+    if (!d) return null;
+    return d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  }
+
+  function renderSyncStatus() {
+    var el = document.getElementById("sync-status");
+    if (!el) return;
+    var trackerTxt = state.dbConnected
+      ? "Tracker last update: " + (fmtClock(state.lastLocalUpdate) || "just now")
+      : "Tracker last update: not connected";
+    var externalTxt = state.lastExternalUpdate
+      ? "External source last update: " + fmtClock(state.lastExternalUpdate)
+      : "External source last update: not yet automated";
+    el.innerHTML =
+      '<span><span class="dot ' + (state.dbConnected ? "live" : "off") + '"></span>' + trackerTxt + '</span>' +
+      '<span><span class="dot off"></span>' + externalTxt + '</span>';
+  }
+
+  function renderBackupMeta() {
+    var el = document.getElementById("backup-meta");
+    if (!el) return;
+    el.textContent = state.lastBackupAt ? "Last backup: " + fmtDateTimeFull(state.lastBackupAt) : "Last backup: never";
+  }
+
+  function renderPillarControls() {
+    var el = document.getElementById("meet-pillar-controls");
+    el.innerHTML = "";
+    var opts = [{ key: "all", label: "All " + PILLAR_WORD }].concat(
+      Object.keys(PILLAR_META).map(function (k) { return { key: k, label: PILLAR_META[k].label }; })
+    );
+    opts.forEach(function (o) {
+      var b = document.createElement("button");
+      b.className = "pillbtn";
+      b.textContent = o.label;
+      b.setAttribute("aria-pressed", state.meetPillar === o.key ? "true" : "false");
+      b.onclick = function () { state.meetPillar = o.key; render(); };
+      el.appendChild(b);
+    });
+  }
+
+  function renderStats() {
+    var open = state.actionItems.filter(function (i) { return i.status !== "done"; });
+    var overdue = open.filter(function (i) { return itemStatusFlags(i).overdue; });
+    var soon = open.filter(function (i) { return itemStatusFlags(i).soon; });
+    var tiles = [
+      { n: overdue.length, l: "Overdue", cls: overdue.length ? "danger" : "", filter: "overdue" },
+      { n: soon.length, l: "Due within 7 days", cls: soon.length ? "warning" : "", filter: "soon" },
+      { n: open.length, l: "Open action items", cls: "", filter: "open" },
+      { n: state.meetings.length, l: "Meetings logged", cls: "", filter: null }
+    ];
+    var el = document.getElementById("stat-strip");
+    el.innerHTML = "";
+    tiles.forEach(function (t) {
+      var b = document.createElement("button");
+      b.className = "stat-tile " + t.cls;
+      b.innerHTML = '<span class="n mono">' + t.n + '</span><span class="l">' + escapeHtml(t.l) + '</span>';
+      if (t.filter) b.onclick = function () { setAiFilter(t.filter); document.getElementById("ai-section").scrollIntoView({ behavior: "smooth", block: "start" }); };
+      el.appendChild(b);
+    });
+  }
+
+  function renderControls() {
+    var el = document.getElementById("ai-controls");
+    el.innerHTML = "";
+    AI_FILTERS.forEach(function (f) {
+      var b = document.createElement("button");
+      b.className = "pillbtn";
+      b.textContent = f.label;
+      b.setAttribute("aria-pressed", state.aiFilter === f.key ? "true" : "false");
+      b.onclick = function () { setAiFilter(f.key); };
+      el.appendChild(b);
+    });
+    var search = document.createElement("input");
+    search.className = "search-input";
+    search.placeholder = "Search description, owner…";
+    search.value = state.aiSearch;
+    search.oninput = function () { state.aiSearch = search.value; renderActionItems(); };
+    el.appendChild(search);
+
+    if (state.aiFilter === "done") {
+      var spacer = document.createElement("div");
+      spacer.className = "spacer";
+      el.appendChild(spacer);
+      var n = Object.keys(state.selectedArchive).filter(function (id) { return state.selectedArchive[id]; }).length;
+      var archiveBtn = document.createElement("button");
+      archiveBtn.className = "ghostbtn";
+      archiveBtn.textContent = n ? "Archive selected (" + n + ")" : "Archive selected";
+      archiveBtn.disabled = !n;
+      if (!n) archiveBtn.style.opacity = "0.5";
+      archiveBtn.onclick = function () {
+        if (!state.db || !n) return;
+        var ids = Object.keys(state.selectedArchive).filter(function (id) { return state.selectedArchive[id]; });
+        ids.forEach(function (id) {
+          state.db.collection("action_items").doc(id).update({ archived: true, updatedAt: new Date().toISOString() });
+        });
+        state.selectedArchive = {};
+      };
+      el.appendChild(archiveBtn);
+    }
+  }
+
+  function renderActionItems() {
+    var list = state.actionItems.filter(function (i) { return matchesFilter(i, state.aiFilter); });
+    if (state.aiSearch.trim()) {
+      var q = state.aiSearch.trim().toLowerCase();
+      list = list.filter(function (i) {
+        return (i.description || "").toLowerCase().indexOf(q) > -1 ||
+               (i.owner || "").toLowerCase().indexOf(q) > -1 ||
+               (i.sourceMeetingTitle || "").toLowerCase().indexOf(q) > -1;
+      });
+    }
+    list.sort(function (a, b) {
+      var ra = rankItem(a), rb = rankItem(b);
+      if (ra !== rb) return ra - rb;
+      if (ra === 0) {
+        var fa = itemStatusFlags(a), fb = itemStatusFlags(b);
+        if (fb.overdueDays !== fa.overdueDays) return fb.overdueDays - fa.overdueDays;
+      }
+      var da = a.dueDate || "9999-99-99", db_ = b.dueDate || "9999-99-99";
+      return da < db_ ? -1 : da > db_ ? 1 : 0;
+    });
+    document.getElementById("ai-count").textContent = list.length + " shown";
+    var tbody = document.getElementById("ai-tbody");
+    tbody.innerHTML = "";
+    if (!list.length) {
+      var tr0 = document.createElement("tr");
+      var emptyMsg = state.aiFilter === "archived"
+        ? "No archived items yet. Check items in the Done view and use “Archive selected” to move them here."
+        : "Nothing matches this view. Paste a meeting transcript in chat with Claude to start populating the register, or add an item manually below.";
+      tr0.innerHTML = '<td colspan="8" class="empty-note">' + emptyMsg + '</td>';
+      tbody.appendChild(tr0);
+      return;
+    }
+    list.forEach(function (item) {
+      var f = itemStatusFlags(item);
+      var tr = document.createElement("tr");
+      if (f.overdue) tr.className = f.overdueTier >= 3 ? "is-overdue-3" : f.overdueTier === 2 ? "is-overdue-2" : "is-overdue";
+      else if (f.soon) tr.className = "is-due-soon";
+
+      var dueClass = f.overdue ? ("overdue" + (f.overdueTier >= 2 ? " overdue-" + f.overdueTier : "")) : f.soon ? "soon" : (!item.dueDate ? "none" : "");
+      var dueText = item.dueDate ? fmtDate(item.dueDate) : "No date set";
+
+      var meta = [];
+      if (item.pillar) meta.push(pillarChip(item.pillar));
+      if (item.category === "logistics") meta.push('<span class="category-chip">Logistics</span>');
+      if (f.overdue && f.overdueTier >= 2) meta.push('<span class="overdue-chip">' + f.overdueDays + 'd overdue</span>');
+      if (f.stalled) meta.push('<span class="stalled-chip">carried ' + (item.timesCarried || 1) + '×</span>');
+      if (item.example) meta.push('<span class="example-chip">example</span>');
+      var updatedLine = item.updatedAt ? '<div class="desc-meta">Updated ' + fmtDateTime(item.updatedAt) + '</div>' : '';
+
+      tr.innerHTML =
+        '<td></td>' +
+        '<td class="desc-cell"><div class="desc-main">' + escapeHtml(item.description) + '</div>' +
+          (item.notes ? '<div class="desc-meta">' + escapeHtml(item.notes) + '</div>' : '') +
+          (meta.length ? '<div class="desc-meta">' + meta.join(" ") + '</div>' : '') +
+          updatedLine +
+        '</td>' +
+        '<td>' + escapeHtml(item.owner || "-") + '</td>' +
+        '<td><span class="dir-chip">' + (item.direction === "owed_to_me" ? "Owed to me" : "I owe") + '</span></td>' +
+        '<td class="due-cell ' + dueClass + '"></td>' +
+        '<td></td>' +
+        '<td>' + (item.sourceMeetingTitle ? escapeHtml(item.sourceMeetingTitle) + '<div class="desc-meta">' + fmtDate(item.sourceMeetingDate) + '</div>' : '<span class="desc-meta">Added directly</span>') + '</td>' +
+        '<td class="row-actions"></td>';
+
+      var checkCell = tr.children[0];
+      if (state.aiFilter === "done") {
+        var cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = !!state.selectedArchive[item.id];
+        cb.title = "Select for archiving";
+        cb.onchange = function () {
+          state.selectedArchive[item.id] = cb.checked;
+          renderControls();
+        };
+        checkCell.appendChild(cb);
+      } else if (state.aiFilter === "archived") {
+        var restore = document.createElement("button");
+        restore.className = "icon-btn";
+        restore.textContent = "↩";
+        restore.title = "Restore from archive";
+        restore.onclick = function () { state.db.collection("action_items").doc(item.id).update({ archived: false, updatedAt: new Date().toISOString() }); };
+        checkCell.appendChild(restore);
+      }
+
+      var dueCell = tr.children[4];
+      if (state.editingDueId === item.id) {
+        var dueInput = document.createElement("input");
+        dueInput.type = "date";
+        dueInput.value = item.dueDate || "";
+        dueInput.onchange = function () {
+          if (!state.db) return;
+          state.db.collection("action_items").doc(item.id).update({
+            dueDate: dueInput.value || null,
+            updatedAt: new Date().toISOString()
+          });
+          state.editingDueId = null;
+          renderActionItems();
+        };
+        dueInput.onblur = function () {
+          setTimeout(function () {
+            if (state.editingDueId === item.id) { state.editingDueId = null; renderActionItems(); }
+          }, 150);
+        };
+        dueCell.appendChild(dueInput);
+        setTimeout(function () { dueInput.focus(); }, 0);
+      } else {
+        var dueSpan = document.createElement("span");
+        dueSpan.className = "due-text";
+        dueSpan.textContent = dueText;
+        dueSpan.title = item.dueDate ? "Click to change due date" : "Click to set a due date";
+        dueSpan.onclick = function () { state.editingDueId = item.id; renderActionItems(); };
+        dueCell.appendChild(dueSpan);
+      }
+
+      var statusCell = tr.children[5];
+      var pill = document.createElement("button");
+      pill.className = "status-pill " + item.status;
+      pill.textContent = STATUS_LABEL[item.status] || item.status;
+      pill.onclick = function () { cycleStatus(item); };
+      statusCell.appendChild(pill);
+
+      var actionsCell = tr.children[7];
+      actionsCell.className = "row-actions";
+      var reassign = document.createElement("button");
+      reassign.className = "icon-btn reassign-btn";
+      reassign.textContent = "Reassign";
+      reassign.title = "Not your item? Fix who it belongs to.";
+      reassign.onclick = function () {
+        state.reassigningId = state.reassigningId === item.id ? null : item.id;
+        renderActionItems();
+      };
+      actionsCell.appendChild(reassign);
+      var del = document.createElement("button");
+      del.className = "icon-btn";
+      del.textContent = "Remove";
+      del.onclick = function () { confirmDelete(del, function () { state.db.collection("action_items").doc(item.id).delete(); }); };
+      actionsCell.appendChild(del);
+
+      tbody.appendChild(tr);
+
+      if (state.reassigningId === item.id) {
+        tbody.appendChild(buildReassignRow(item));
+      }
+    });
+  }
+
+  function buildReassignRow(item) {
+    var tr = document.createElement("tr");
+    tr.className = "reassign-row";
+    var td = document.createElement("td");
+    td.colSpan = 8;
+    var form = document.createElement("form");
+    form.className = "reassign-form";
+
+    var nameInput = document.createElement("input");
+    nameInput.className = "field-input";
+    nameInput.placeholder = "Correct owner's name (e.g. Pat Rivera)";
+    nameInput.required = true;
+
+    var modeSelect = document.createElement("select");
+    modeSelect.className = "field-select";
+    modeSelect.innerHTML =
+      '<option value="their_task">Not mine - it’s their own task</option>' +
+      '<option value="owed_to_me">They owe this to me directly</option>';
+
+    var hint = document.createElement("div");
+    hint.className = "reassign-hint";
+    hint.textContent = item.sourceMeetingId
+      ? "“Their own task” moves this into that meeting’s notes and takes it off your register. “Owed to me” keeps it here with the new owner."
+      : "This item isn’t linked to a meeting, so either option keeps it here with the new owner and direction.";
+
+    var actions = document.createElement("div");
+    actions.className = "reassign-actions";
+    var saveBtn = document.createElement("button");
+    saveBtn.type = "submit";
+    saveBtn.className = "ghostbtn";
+    saveBtn.textContent = "Save";
+    var cancelBtn = document.createElement("button");
+    cancelBtn.type = "button";
+    cancelBtn.className = "icon-btn";
+    cancelBtn.textContent = "Cancel";
+    cancelBtn.onclick = function () { state.reassigningId = null; renderActionItems(); };
+    actions.appendChild(saveBtn);
+    actions.appendChild(cancelBtn);
+
+    form.appendChild(nameInput);
+    form.appendChild(modeSelect);
+    form.appendChild(hint);
+    form.appendChild(actions);
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var newOwner = nameInput.value.trim();
+      if (!newOwner || !state.db) return;
+      var mode = modeSelect.value;
+      var meeting = item.sourceMeetingId ? state.meetings.filter(function (m) { return m.id === item.sourceMeetingId; })[0] : null;
+
+      if (mode === "their_task" && meeting) {
+        var updatedOthers = (meeting.otherActionItems || []).concat([{ assignee: newOwner, description: item.description }]);
+        state.db.collection("meetings").doc(meeting.id).update({
+          otherActionItems: updatedOthers,
+          updatedAt: new Date().toISOString()
+        });
+        state.db.collection("action_items").doc(item.id).delete();
+      } else {
+        state.db.collection("action_items").doc(item.id).update({
+          owner: newOwner,
+          direction: "owed_to_me",
+          updatedAt: new Date().toISOString()
+        });
+      }
+      state.reassigningId = null;
+      renderActionItems();
+    });
+
+    td.appendChild(form);
+    tr.appendChild(td);
+    return tr;
+  }
+
+  function confirmDelete(btn, fn) {
+    if (btn.dataset.confirming === "1") { fn(); return; }
+    btn.dataset.confirming = "1";
+    btn.textContent = "Confirm?";
+    btn.classList.add("confirming");
+    setTimeout(function () { btn.dataset.confirming = "0"; btn.textContent = "Remove"; btn.classList.remove("confirming"); }, 3000);
+  }
+
+  function cycleStatus(item) {
+    if (!state.db) return;
+    var idx = STATUS_ORDER.indexOf(item.status);
+    var next = STATUS_ORDER[(idx + 1) % STATUS_ORDER.length];
+    state.db.collection("action_items").doc(item.id).update({ status: next, updatedAt: new Date().toISOString() });
+  }
+
+  var DEC_FILTERS = [
+    { key: "active", label: "Active" },
+    { key: "archived", label: "Archived" }
+  ];
+
+  function renderDecControls() {
+    var el = document.getElementById("dec-controls");
+    if (!el) return;
+    el.innerHTML = "";
+    DEC_FILTERS.forEach(function (f) {
+      var b = document.createElement("button");
+      b.className = "pillbtn";
+      b.textContent = f.label;
+      b.setAttribute("aria-pressed", state.decFilter === f.key ? "true" : "false");
+      b.onclick = function () { state.decFilter = f.key; renderDecisions(); };
+      el.appendChild(b);
+    });
+  }
+
+  function renderDecisions() {
+    var list = state.decisions.filter(function (d) {
+      return state.decFilter === "archived" ? !!d.archived : !d.archived;
+    });
+    document.getElementById("dec-count").textContent = list.length;
+    var el = document.getElementById("dec-list");
+    el.innerHTML = "";
+    if (!list.length) {
+      el.innerHTML = state.decFilter === "archived"
+        ? '<div class="empty-note">No archived decisions. Once a decision is settled and no longer active, archive it from the Active view.</div>'
+        : '<div class="empty-note">Decisions called out in logged meetings will collect here.</div>';
+      return;
+    }
+    list.slice().sort(function (a, b) { return (b.date || "") < (a.date || "") ? -1 : 1; }).forEach(function (d) {
+      var div = document.createElement("div");
+      div.className = "decision-item";
+      div.innerHTML =
+        '<div class="d-main">' +
+          '<div class="d-date mono">' + fmtDate(d.date) + '</div>' +
+          '<div class="d-text">' + escapeHtml(d.text) + '</div>' +
+          '<div class="d-meta">' + [d.owner, d.meetingTitle].filter(Boolean).map(escapeHtml).join(" · ") + '</div>' +
+        '</div>' +
+        '<div class="d-actions"></div>';
+      var actions = div.querySelector(".d-actions");
+      var btn = document.createElement("button");
+      btn.className = "icon-btn";
+      if (state.decFilter === "archived") {
+        btn.textContent = "↩";
+        btn.title = "Restore to active";
+        btn.onclick = function () { state.db && state.db.collection("decisions").doc(d.id).update({ archived: false, updatedAt: new Date().toISOString() }); };
+      } else {
+        btn.textContent = "Archive";
+        btn.title = "No longer active - move to Archived";
+        btn.onclick = function () { state.db && state.db.collection("decisions").doc(d.id).update({ archived: true, updatedAt: new Date().toISOString() }); };
+      }
+      actions.appendChild(btn);
+      el.appendChild(div);
+    });
+  }
+
+  function renderMeetings() {
+    var list = state.meetings.slice();
+    if (state.meetPillar !== "all") {
+      list = list.filter(function (m) { return (m.pillars || []).indexOf(state.meetPillar) > -1; });
+    }
+    if (state.meetSearch.trim()) {
+      var q = state.meetSearch.trim().toLowerCase();
+      list = list.filter(function (m) {
+        var hay = [m.title, m.summary, (m.attendees || []).join(" "), (m.topics || []).join(" ")].join(" ").toLowerCase();
+        return hay.indexOf(q) > -1;
+      });
+    }
+    list.sort(function (a, b) { return (b.date || "") < (a.date || "") ? -1 : 1; });
+    document.getElementById("meet-count").textContent = list.length;
+    var el = document.getElementById("meet-list");
+    el.innerHTML = "";
+    if (!list.length) {
+      el.innerHTML = '<div class="empty-note">No meetings logged yet. Paste a transcript and the date into chat with Claude to add the first one.</div>';
+      return;
+    }
+    list.forEach(function (m) {
+      var det = document.createElement("details");
+      det.className = "meeting-card";
+      var pillars = (m.pillars || []).map(pillarChip).join(" ");
+      var topics = (m.topics || []).slice(0, 4).map(function (t) { return '<span class="topic-chip">' + escapeHtml(t) + '</span>'; }).join("");
+      var bodyInner;
+      if (m.stub) {
+        var stubText = m.stubReason === "private"
+          ? "Private meeting - logged for awareness only, no further detail captured."
+          : "Personal calendar block (e.g. travel) - logged for awareness only, no further detail captured.";
+        bodyInner = '<div class="m-section"><p class="stub-note">' + escapeHtml(stubText) + '</p></div>';
+      } else {
+        bodyInner =
+          '<div class="m-section"><div class="m-label">Attendees</div><div class="attendee-list">' + escapeHtml((m.attendees || []).join(", ") || "-") + '</div></div>' +
+          '<div class="m-section"><div class="m-label">Summary</div><p>' + escapeHtml(m.summary || "-") + '</p></div>' +
+          (m.highlights && m.highlights.length ? '<div class="m-section"><div class="m-label">Highlights</div><p>' + m.highlights.map(escapeHtml).join(" · ") + '</p></div>' : '') +
+          (m.riskFlags && m.riskFlags.length ? '<div class="m-section"><div class="m-label">Risk flags</div><p class="risk-line">' + m.riskFlags.map(escapeHtml).join(" · ") + '</p></div>' : '');
+      }
+      if (m.otherActionItems && m.otherActionItems.length) {
+        bodyInner += '<div class="m-section"><div class="m-label">Others’ action items</div><div class="other-ai-list">' +
+          m.otherActionItems.map(function (oai) {
+            return '<div><span class="oai-assignee">' + escapeHtml(oai.assignee || "Unassigned") + ':</span> ' + escapeHtml(oai.description || "") + '</div>';
+          }).join("") + '</div></div>';
+      }
+      det.innerHTML =
+        '<summary><span class="m-date mono">' + fmtDate(m.date) + '</span><span class="m-title">' + escapeHtml(m.title || "Meeting") + '</span>' +
+        (m.example ? '<span class="example-chip">example</span>' : '') +
+        '<span class="m-meta-right">' + pillars + topics + '</span></summary>' +
+        '<div class="meeting-body">' + bodyInner + '<div class="m-footer"></div></div>';
+      var footer = det.querySelector(".m-footer");
+      var del = document.createElement("button");
+      del.className = "icon-btn";
+      del.textContent = "Remove meeting";
+      del.onclick = function (e) { e.preventDefault(); confirmDelete(del, function () { state.db.collection("meetings").doc(m.id).delete(); }); };
+      footer.appendChild(del);
+      el.appendChild(det);
+    });
+  }
+
+  document.getElementById("meet-search").addEventListener("input", function (e) {
+    state.meetSearch = e.target.value;
+    renderMeetings();
+  });
+
+  document.getElementById("add-ai-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!state.db) return;
+    var desc = document.getElementById("af-desc").value.trim();
+    if (!desc) return;
+    state.db.collection("action_items").add({
+      description: desc,
+      owner: document.getElementById("af-owner").value.trim(),
+      direction: document.getElementById("af-direction").value,
+      priority: document.getElementById("af-priority").value,
+      dueDate: document.getElementById("af-due").value || null,
+      status: "open",
+      sourceMeetingId: null,
+      sourceMeetingTitle: null,
+      sourceMeetingDate: null,
+      raisedDate: todayStr(),
+      timesCarried: 1,
+      notes: "",
+      pillar: "",
+      archived: false,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    }).then(function () {
+      document.getElementById("add-ai-form").reset();
+    });
+  });
+
+  document.getElementById("backup-btn").addEventListener("click", async function () {
+    var rows = [["Status", "Description", "Owner", "Direction", "Priority", "Due Date", "Raised", "Source Meeting", "Notes", "Archived"]];
+    state.actionItems.forEach(function (i) {
+      rows.push([
+        STATUS_LABEL[i.status] || i.status,
+        i.description || "",
+        i.owner || "",
+        i.direction === "owed_to_me" ? "Owed to me" : "I owe",
+        i.priority || "",
+        i.dueDate || "",
+        i.raisedDate || "",
+        i.sourceMeetingTitle || "",
+        i.notes || "",
+        i.archived ? "Yes" : "No"
+      ]);
+    });
+    var csv = rows.map(function (r) {
+      return r.map(function (v) {
+        var s = String(v == null ? "" : v);
+        return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+      }).join(",");
+    }).join("\r\n");
+
+    if (!state.downloads) { alert("Downloads aren't available in this view."); return; }
+    try {
+      await state.downloads.save({ filename: "throughline-backup-" + todayStr() + ".csv", data: csv });
+      if (state.db) {
+        state.db.collection("meta").doc("backup").set({ lastBackupAt: new Date().toISOString() });
+      }
+    } catch (err) {
+      if (err && err.code === "declined") return;
+      console.error("CSV export failed", err);
+    }
+  });
+
+  (function () {
+    var tzEl = document.getElementById("tz-note");
+    if (!tzEl) return;
+    var tz = "your device's local zone";
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || tz; } catch (e) {}
+    tzEl.textContent = "Dates and the “due within 7 days” window are calculated in this device's current time zone (" + tz + "), read live from your computer - traveling to a new zone and reopening the page picks it up automatically.";
+  })();
+
+  function showDbUnavailable() {
+    var b = document.getElementById("db-banner");
+    b.hidden = false;
+    b.textContent = "Live data isn't available in this view - you're seeing an empty page. Open this from claude.ai to see the tracker.";
+  }
+
+  async function boot() {
+    if (!window.claude || !window.claude.use) { showDbUnavailable(); render(); return; }
+    var db = await window.claude.use("db");
+    if (!db) { showDbUnavailable(); render(); return; }
+    state.db = db;
+    state.dbConnected = true;
+    state.downloads = await window.claude.use("downloads");
+
+    db.collection("action_items").limit(1000).onSnapshot(function (snap) {
+      state.actionItems = snap.docs.map(function (d) { return Object.assign({ id: d.id }, d.data()); });
+      state.lastLocalUpdate = new Date();
+      render();
+    }, function (err) { console.error("action_items snapshot error", err); });
+
+    db.collection("meetings").limit(500).onSnapshot(function (snap) {
+      state.meetings = snap.docs.map(function (d) { return Object.assign({ id: d.id }, d.data()); });
+      state.lastLocalUpdate = new Date();
+      render();
+    }, function (err) { console.error("meetings snapshot error", err); });
+
+    db.collection("decisions").limit(500).onSnapshot(function (snap) {
+      state.decisions = snap.docs.map(function (d) { return Object.assign({ id: d.id }, d.data()); });
+      state.lastLocalUpdate = new Date();
+      render();
+    }, function (err) { console.error("decisions snapshot error", err); });
+
+    db.collection("radar_topics").limit(200).onSnapshot(function (snap) {
+      state.radarTopics = snap.docs.map(function (d) { return Object.assign({ id: d.id }, d.data()); });
+      renderRadar();
+    }, function (err) { console.error("radar_topics snapshot error", err); });
+
+    db.collection("meta").limit(20).onSnapshot(function (snap) {
+      var docs = snap.docs.map(function (d) { return Object.assign({ id: d.id }, d.data()); });
+      var backupDoc = docs.filter(function (d) { return d.id === "backup"; })[0];
+      state.lastBackupAt = backupDoc && backupDoc.lastBackupAt ? new Date(backupDoc.lastBackupAt) : null;
+      var radarDoc = docs.filter(function (d) { return d.id === "radar"; })[0];
+      state.lastExternalUpdate = radarDoc && radarDoc.lastScanAt ? new Date(radarDoc.lastScanAt) : null;
+      var configDoc = docs.filter(function (d) { return d.id === "config"; })[0];
+      if (configDoc) { applyConfig(configDoc); renderPillarControls(); render(); }
+      var healthDoc = docs.filter(function (d) { return d.id === "source_health"; })[0];
+      state.sourceHealth = {
+        calendar: healthDoc && healthDoc.calendarLastSuccessAt ? new Date(healthDoc.calendarLastSuccessAt) : null,
+        email: healthDoc && healthDoc.emailLastSuccessAt ? new Date(healthDoc.emailLastSuccessAt) : null,
+        teams: healthDoc && healthDoc.teamsLastSuccessAt ? new Date(healthDoc.teamsLastSuccessAt) : null,
+        fellow: healthDoc && healthDoc.fellowLastSuccessAt ? new Date(healthDoc.fellowLastSuccessAt) : null
+      };
+      renderBackupMeta();
+      renderSyncStatus();
+      renderSourceStatus();
+    }, function (err) { console.error("meta snapshot error", err); });
+
+    setInterval(renderSourceStatus, 60000);
+  }
+
+  render();
+  boot();
+})();
+</script>
+
+</body></html>
