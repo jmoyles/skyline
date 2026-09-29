@@ -1,0 +1,10 @@
+{
+  "name": "skyline",
+  "version": "1.0.0",
+  "description": "SkyLine suite. Throughline keeps a live record of your meetings, decisions, and action items from your calendar, email, and Fellow. Ridgeline turns it into a triaged daily digest. Run /skyline:setup once after installing.",
+  "author": {
+    "name": "John Moyles",
+    "email": "jmoyles@latite.com"
+  },
+  "keywords": ["meetings", "action items", "decisions", "digest", "microsoft 365", "fellow"]
+}
