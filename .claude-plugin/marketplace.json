@@ -1,0 +1,19 @@
+{
+  "name": "skyline",
+  "owner": {
+    "name": "John Moyles",
+    "email": "jmoyles@latite.com"
+  },
+  "metadata": {
+    "description": "SkyLine: a meeting, decision, and commitment tracking suite for Claude.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "skyline",
+      "source": "./plugins/skyline",
+      "description": "Throughline (meeting and commitment tracker) and Ridgeline (daily triage digest), with one-command setup.",
+      "version": "1.0.0"
+    }
+  ]
+}
